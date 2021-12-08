@@ -1,5 +1,4 @@
 ﻿using ClienteCrud.Domain;
-using ClienteCrud.Infra;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
