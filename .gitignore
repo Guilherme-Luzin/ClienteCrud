@@ -1,8 +1,8 @@
 ClienteCrud.Domain/bin/
-ClienteCrud.Domain/obj/
+ClienteCrud.Domain/obj/Debug/net5.0
 ClienteCrud.Infra/bin/
-ClienteCrud.Infra/obj/
+ClienteCrud.Infra/obj/Debug/net5.0
 ClienteCrud.UI/bin/
-ClienteCrud.UI/obj/
+ClienteCrud.UI/obj/Debug/net5.0
 ClienteCrud.Web/bin/
-ClienteCrud.Web/obj/
+ClienteCrud.Web/obj/Debug/net5.0
