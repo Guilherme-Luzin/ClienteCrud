@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ClienteCrud.Domain\ClienteCrud.Domain.csproj" />
-    <ProjectReference Include="..\ClienteCrud.Infra\ClienteCrud.Infra.csproj" />
   </ItemGroup>
 
 </Project>
