@@ -1,0 +1,8 @@
+ClienteCrud.Domain/bin/
+ClienteCrud.Domain/obj/
+ClienteCrud.Infra/bin/
+ClienteCrud.Infra/obj/
+ClienteCrud.UI/bin/
+ClienteCrud.UI/obj/
+ClienteCrud.Web/bin/
+ClienteCrud.Web/obj/
