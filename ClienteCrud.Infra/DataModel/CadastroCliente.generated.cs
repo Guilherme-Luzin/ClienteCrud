@@ -57,15 +57,6 @@ namespace DataModels
 		partial void InitMappingSchema();
 	}
 
-	//[Table(Schema="dbo", Name="Cliente")]
-	//public partial class Cliente
-	//{
-	//	[PrimaryKey, Identity] public int    Id    { get; set; } // int
-	//	[Column,     NotNull ] public string Nome  { get; set; } // nvarchar(255)
-	//	[Column,     NotNull ] public int    Idade { get; set; } // int
-	//	[Column,     NotNull ] public string Email { get; set; } // nvarchar(255)
-	//}
-
 	[Table(Schema="dbo", Name="VersionInfo")]
 	public partial class VersionInfo
 	{
