@@ -20,3 +20,4 @@ C:\Users\INVENT017\source\repos\ClienteCrud\ClienteCrud.Domain\obj\Debug\net5.0\
 C:\Users\INVENT017\source\repos\ClienteCrud\ClienteCrud.Domain\obj\Debug\net5.0\ClienteCrud.Domain.dll
 C:\Users\INVENT017\source\repos\ClienteCrud\ClienteCrud.Domain\obj\Debug\net5.0\ref\ClienteCrud.Domain.dll
 C:\Users\INVENT017\source\repos\ClienteCrud\ClienteCrud.Domain\obj\Debug\net5.0\ClienteCrud.Domain.pdb
+C:\Users\INVENT017\source\repos\ClienteCrud\ClienteCrud.Domain\obj\Debug\net5.0\ClienteCrud.Domain.csproj.AssemblyReference.cache
