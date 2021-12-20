@@ -43,7 +43,7 @@ namespace ClienteCrud.Web
                     // Set the connection string
                     .WithGlobalConnectionString("Data Source=INVENT017;Initial Catalog=CadastroCliente;Integrated Security=True")
                     // Define the assembly containing the migrations
-                    .ScanIn(typeof(_20211207133100_criando_tabela_de_clientes).Assembly).For.Migrations())
+                    .ScanIn(typeof(_20211217151100_criando_tabela_de_clientes).Assembly).For.Migrations())
                 // Enable logging to console in the FluentMigrator way
                 .AddLogging(lb => lb.AddFluentMigratorConsole())
                 // Build the service provider
