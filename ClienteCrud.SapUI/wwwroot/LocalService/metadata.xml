@@ -1,0 +1,27 @@
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+	<edmx:DataServices m:DataServiceVersion="1.0" m:MaxDataServiceVersion="3.0"
+			xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+		<Schema Namespace="ClienteModel" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+			<EntityType Name="Cliente">
+				<Key>
+					<PropertyRef Name="Id"/>
+					<PropertyRef Name="Nome"/>
+					<PropertyRef Name="Idade"/>
+                    <PropertyRef Name="Email"/>
+				</Key>
+                <Property Name="Id" Type="Edm.Int16" Nullable="false"/>
+				<Property Name="Nome" Type="Edm.String" Nullable="false" MaxLength="255" FixedLength="false"
+							Unicode="true"/>
+                <Property Name="Idade" Type="Edm.Int32" Precision="19" Scale="4"/>
+				<Property Name="Email" Type="Edm.String" Nullable="false" MaxLength="255" FixedLength="false"
+							Unicode="true"/>
+			</EntityType>
+		</Schema>
+		<Schema Namespace="ODataWebV2.Cliente.Model" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+			<EntityContainer Name="NorthwindEntities" m:IsDefaultEntityContainer="true" p6:LazyLoadingEnabled="true"
+					xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+				<EntitySet Name="Cliente" EntityType="NorthwindModel.Cliente"/>
+			</EntityContainer>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

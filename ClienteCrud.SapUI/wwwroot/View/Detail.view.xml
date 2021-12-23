@@ -1,0 +1,20 @@
+<mvc:View
+	controllerName="sap.ui.crudCliente.Controller.Detail"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc">
+	<Page
+		title="{i18n>DetailPageTitle}"
+		showNavButton="true"
+		navButtonPress=".onNavBack">
+		<ObjectHeader
+			title="Detalhes do Cliente"
+			class="sapUiResponsivePadding--header">
+			<ObjectAttribute title="Id" text="{client>id}"/>
+			<ObjectAttribute title="Nome" text="{client>nome}"/>
+			<ObjectAttribute title="Email" text="{client>email}"/>
+			<ObjectAttribute title="Idade" text="{client>idade}"/>
+			<ObjectAttribute text="Voltar para a lista" active="true" press="onNavBack"/>
+			<ObjectAttribute text="Editar" active="true" press="onEdit"/>
+		</ObjectHeader>
+	</Page>
+</mvc:View>

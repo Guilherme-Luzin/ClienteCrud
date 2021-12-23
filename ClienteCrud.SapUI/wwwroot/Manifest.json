@@ -1,0 +1,110 @@
+{
+    "_version": "1.12.0",
+    "sap.app": {
+      "id": "sap.ui.crudCliente",
+      "type": "application",
+      "i18n": "i18n/i18n.properties",
+      "title": "{{appTitle}}",
+      "description": "{{appDescription}}",
+      "applicationVersion": {
+        "version": "1.0.0"
+      }
+    },
+  "sap.ui": {
+    "technology": "UI5",
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "rootView": {
+      "viewName": "sap.ui.crudCliente.View.App",
+      "type": "XML",
+      "id": "app"
+    },
+    "dependencies": {
+      "minUI5Version": "1.93",
+      "libs": {
+        "sap.ui.core": {},
+        "sap.m": {}
+      }
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "sap.ui.crudCliente.i18n.i18n",
+          "supportedLocales": [ "" ],
+          "fallbackLocale": ""
+        }
+      },
+      "client": {
+        "type": "sap.ui.model.json.JSONModel",
+        "uri": "Clients.json"
+      }
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "viewPath": "sap.ui.crudCliente.View",
+        "controlId": "app",
+        "controlAggregation": "pages"
+      },
+      "routes": [
+        {
+          "pattern": "",
+          "name": "overview",
+          "target": "overview"
+        },
+        {
+          "pattern": "create",
+          "name": "create",
+          "target": "create"
+        },
+        {
+          "pattern": "edit/{clientPath}",
+          "name": "edit",
+          "target": "create"
+        },
+        {
+          "pattern": "detail/{clientPath}",
+          "name": "detail",
+          "target": "detail"
+        },
+        {
+          "pattern": "delete/{clientPath}",
+          "name": "delete",
+          "target": "delete"
+        }
+      ],
+      "targets": {
+        "overview": {
+          "viewId": "overview",
+          "viewName": "Overview"
+        },
+        "create": {
+          "viewId": "create",
+          "viewName": "Create"
+        },
+        "detail": {
+          "viewId": "detail",
+          "viewName": "Detail"
+        },
+        "delete": {
+          "viewId": "delete",
+          "viewName": "Delete"
+        }
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    }
+  }
+  }
