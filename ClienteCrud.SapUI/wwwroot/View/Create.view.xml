@@ -1,0 +1,52 @@
+<mvc:View
+    controllerName="sap.ui.crudCliente.Controller.Create"
+    xmlns="sap.m"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:mvc="sap.ui.core.mvc">
+    <Page class="sapUiSmallMargin"
+		title="{i18n>CreatePageTitle}"
+		showNavButton="true"
+		navButtonPress=".onNavBack">
+        <Panel headerText="{i18n>CreatePageTitle}" class="sapUiResponsiveMargin" width="auto">
+            <form:SimpleForm id="inClient" editable="true" layout="ResponsiveGridLayout">
+                <Label text="Id" labelFor="Id"/>
+                <Input
+                    id="inId"
+                    value="{client>/id}"
+                    class="sapUiSmallMarginBottom"
+                    editable="false"/>
+                <Label text="Nome" labelFor="Nome"/>
+                <Input
+					value="{client>/Nome}"
+                    id="inNome"
+                    placeholder="Insira o nome do cliente"
+                    class="sapUiSmallMarginBottom"/>
+                <Label text="Email" labelFor="Email" />
+                <Input
+					value="{client>/Email}"
+					id="inEmail"
+                    type="Email"
+                    placeholder="exemplo@exemplo.exemplo"
+                    class="sapUiSmallMarginBottom"
+					change="onValidate"/>
+                <Label text="Idade" labelFor="Idade" />
+				<Input
+					value="{client>/Idade}"
+                    id="inIdade"
+                    type="Number"
+                    placeholder="0"
+                    class="sapUiSmallMarginBottom"/>
+                <Button
+					type="Accept"
+                    icon="sap-icon://save"
+                    text="{i18n>BtnSalvar}"
+                    press=".onAddClient"/>
+                <Button
+					type="Reject"
+                    icon="sap-icon://cancel"
+                    text="{i18n>BtnCancelar}"
+                    press=".onNavBack"/>
+            </form:SimpleForm>
+        </Panel>
+    </Page>
+</mvc:View>

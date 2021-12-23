@@ -1,0 +1,58 @@
+<mvc:View
+    controllerName="sap.ui.crudCliente.Controller.ClientList"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc">
+    <Table
+        id="ClientTable"
+        headerText="{i18n>ClientListTitle}"
+        class="sapUiResponsiveMargin"
+        width="auto"
+        items="{client>/Client}"
+		includeItemInSelection="true">
+        <columns>
+			<Column
+				minScreenWidth="Small"
+				demandPopin="true"
+				width="5em">
+				<Text text="{i18n>columnId}"/>
+			</Column>
+			<Column
+                minScreenWidth="Small"
+				demandPopin="true">
+				<Text text="{i18n>columnName}"/>
+			</Column>
+			<Column
+                width="20em"
+				minScreenWidth="Tablet"
+				demandPopin="false">
+				<Text text="{i18n>columnEmail}"/>
+			</Column>
+            <Column
+				minScreenWidth="Small"
+				demandPopin="true">
+				<Text text="{i18n>columnAge}"/>
+			</Column>
+            <Column></Column>
+            <Column ></Column>
+            <Column>
+                <Button
+					icon="sap-icon://add"
+					id="create"
+                    press=".onCreate"/>
+            </Column>
+		</columns>
+		<items>
+			<ColumnListItem>
+				<cells>
+					<ObjectIdentifier title="{client>id}"/>
+					<Text text="{client>nome}"></Text>
+                    <Text text="{client>email}"/>
+					<Text text="{client>idade}"/>
+                    <Link id="edit" text="Editar" press=".onEdit"/>
+                    <Link text="Detalhes" press=".onDetail"/>
+                    <Link text="Deletar" press=".onDelete"/>
+				</cells>
+			</ColumnListItem>
+		</items>
+	</Table>
+</mvc:View>
