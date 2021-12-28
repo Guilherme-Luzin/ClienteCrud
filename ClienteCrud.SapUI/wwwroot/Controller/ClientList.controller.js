@@ -1,8 +1,9 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/model/json/JSONModel",
-	"sap/ui/model/resource/ResourceModel"
-], function (Controller, JSONModel, ResourceModel) {
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator"
+], function (Controller, JSONModel, Filter, FilterOperator) {
 	"use strict";
 
 	return Controller.extend("sap.ui.crudCliente.Controller.ClientList", {
@@ -22,6 +23,19 @@ sap.ui.define([
 					alert("Erro ao gerar tabela: " + ConvertedResponse)
 				}
 			})
+		},
+		onFilterClient: function (oEvent) {
+			// build filter array
+			var nFilter = [];
+			var sQuery = oEvent.getParameter("query");
+			if (sQuery) {
+				nFilter.push(new Filter("nome", FilterOperator.Contains, sQuery));
+			}
+
+			// filter binding
+			var oTable = this.byId("ClientTable");
+			var oBinding = oTable.getBinding("items");
+			oBinding.filter(nFilter);
         },
 		onCreate : function () {
 			this.getOwnerComponent().getRouter().navTo("create");
@@ -32,21 +46,16 @@ sap.ui.define([
 			var IdView = selectedClient.id;
 			var oRouter = this.getOwnerComponent().getRouter();
 			oRouter.navTo("edit", {
-				clientPath: IdView
+				data: IdView
 			});
 		},
 		onDetail: function (oEvent) {
-			//var oItem = oEvent.getSource();
-			//var oRouter = this.getOwnerComponent().getRouter();
-			//oRouter.navTo("detail", {
-			//	clientPath: window.encodeURIComponent(oItem.getBindingContext("client").getPath().substr(1))
-			//});
 			var bindingContext = oEvent.getSource().getBindingContext("client");
 			var selectedClient = bindingContext.getObject();
 			var IdView = selectedClient.id;
 			var oRouter = this.getOwnerComponent().getRouter();
 			oRouter.navTo("detail", {
-				clientPath: IdView
+				data: IdView
 			});
 		},
 		onDelete: function (oEvent) {
@@ -55,7 +64,7 @@ sap.ui.define([
 			var IdView = selectedClient.id;
 			var oRouter = this.getOwnerComponent().getRouter();
 			oRouter.navTo("delete", {
-				clientPath: IdView
+				data: IdView
 			});
 		}
 	});
