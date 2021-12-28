@@ -1,20 +1,33 @@
 <mvc:View
 	controllerName="sap.ui.crudCliente.Controller.Detail"
 	xmlns="sap.m"
+	xmlns:form="sap.ui.layout.form"
 	xmlns:mvc="sap.ui.core.mvc">
 	<Page
 		title="{i18n>DetailPageTitle}"
 		showNavButton="true"
 		navButtonPress=".onNavBack">
-		<ObjectHeader
-			title="Detalhes do Cliente"
-			class="sapUiResponsivePadding--header">
-			<ObjectAttribute title="Id" text="{client>id}"/>
-			<ObjectAttribute title="Nome" text="{client>nome}"/>
-			<ObjectAttribute title="Email" text="{client>email}"/>
-			<ObjectAttribute title="Idade" text="{client>idade}"/>
-			<ObjectAttribute text="Voltar para a lista" active="true" press="onNavBack"/>
-			<ObjectAttribute text="Editar" active="true" press="onEdit"/>
-		</ObjectHeader>
+		<Panel class="sapUiResponsiveMargin" width="auto">
+			<form:SimpleForm editable="true" layout="ResponsiveGridLayout">
+				<ObjectHeader
+					title="{i18n>DetailPageTitle}"
+					class="sapUiResponsivePadding--header">
+					<ObjectAttribute title="{i18n>CustomerId}" text="{client>/id}"/>
+					<ObjectAttribute title="{i18n>CustomerName}" text="{client>/nome}"/>
+					<ObjectAttribute title="{i18n>CustomerEmail}" text="{client>/email}"/>
+					<ObjectAttribute title="{i18n>CustomerAge}" text="{client>/idade}"/>
+					<ObjectAttribute text=""/>
+				</ObjectHeader>
+			</form:SimpleForm>
+			<Button
+				icon="sap-icon://edit"
+				text="{i18n>BtnEdit}"
+				press=".onEdit"/>
+			<Button
+				type="Reject"
+				icon="sap-icon://cancel"
+				text="{i18n>BtnCancel}"
+				press=".onNavBack"/>
+		</Panel>
 	</Page>
 </mvc:View>

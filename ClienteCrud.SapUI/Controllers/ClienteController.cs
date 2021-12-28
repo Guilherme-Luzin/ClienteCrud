@@ -22,19 +22,6 @@ namespace CrudCliente.SapUI.Controllers
             return Ok(cliente);
         }
 
-        [HttpGet]
-        [Route("Edit")]
-        public IActionResult Edit(int id)
-        {
-            Cliente cliente = new Cliente();
-            var Getcliente = _clientRepository.GetCliente(id);
-            cliente.Id = Getcliente.Id;
-            cliente.Nome = Getcliente.Nome;
-            cliente.Idade = Getcliente.Idade;
-            cliente.Email = Getcliente.Email;
-            return Ok(cliente);
-        }
-
         [HttpPost]
         [Route("Create")]
         public IActionResult Create(Cliente cliente)
@@ -53,21 +40,8 @@ namespace CrudCliente.SapUI.Controllers
         }
 
         [HttpGet]
-        [Route("Details")]
-        public IActionResult Details(int id)
-        {
-            Cliente cliente = new Cliente();
-            var GetCliente = _clientRepository.GetCliente(id);
-            cliente.Id = GetCliente.Id;
-            cliente.Nome = GetCliente.Nome;
-            cliente.Idade = GetCliente.Idade;
-            cliente.Email = GetCliente.Email;
-            return Ok(cliente);
-        }
-
-        [HttpGet]
-        [Route("Delete")]
-        public IActionResult Delete(int id)
+        [Route("GetClient")]
+        public IActionResult GetClient(int id)
         {
             Cliente cliente = new Cliente();
             var GetCliente = _clientRepository.GetCliente(id);

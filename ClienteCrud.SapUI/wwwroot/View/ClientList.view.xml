@@ -4,11 +4,17 @@
     xmlns:mvc="sap.ui.core.mvc">
     <Table
         id="ClientTable"
-        headerText="{i18n>ClientListTitle}"
         class="sapUiResponsiveMargin"
         width="auto"
         items="{client>/Client}"
 		includeItemInSelection="true">
+		<headerToolbar>
+			<Toolbar>
+				<Title text="{i18n>ClientListTitle}"/>
+				<ToolbarSpacer/>
+				<SearchField width="50%" search=".onFilterClient"/>
+			</Toolbar>
+		</headerToolbar>
         <columns>
 			<Column
 				minScreenWidth="Small"

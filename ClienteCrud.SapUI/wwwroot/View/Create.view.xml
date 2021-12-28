@@ -9,44 +9,43 @@
 		navButtonPress=".onNavBack">
         <Panel headerText="{i18n>CreatePageTitle}" class="sapUiResponsiveMargin" width="auto">
             <form:SimpleForm id="inClient" editable="true" layout="ResponsiveGridLayout">
-                <Label text="Id" labelFor="Id"/>
+                <Label text="Id" labelFor="id"/>
                 <Input
                     id="inId"
                     value="{client>/id}"
                     class="sapUiSmallMarginBottom"
                     editable="false"/>
-                <Label text="Nome" labelFor="Nome"/>
+                <Label text="Nome" labelFor="nome"/>
                 <Input
-					value="{client>/Nome}"
+					value="{client>/nome}"
                     id="inNome"
                     placeholder="Insira o nome do cliente"
                     class="sapUiSmallMarginBottom"/>
-                <Label text="Email" labelFor="Email" />
+                <Label text="Email" labelFor="email" />
                 <Input
-					value="{client>/Email}"
+					value="{client>/email}"
 					id="inEmail"
                     type="Email"
                     placeholder="exemplo@exemplo.exemplo"
-                    class="sapUiSmallMarginBottom"
-					change="onValidate"/>
-                <Label text="Idade" labelFor="Idade" />
+                    class="sapUiSmallMarginBottom"/>
+                <Label text="Idade" labelFor="idade" />
 				<Input
-					value="{client>/Idade}"
+					value="{client>/idade}"
                     id="inIdade"
                     type="Number"
                     placeholder="0"
                     class="sapUiSmallMarginBottom"/>
-                <Button
+            </form:SimpleForm>
+			<Button
 					type="Accept"
                     icon="sap-icon://save"
                     text="{i18n>BtnSalvar}"
                     press=".onAddClient"/>
-                <Button
-					type="Reject"
-                    icon="sap-icon://cancel"
-                    text="{i18n>BtnCancelar}"
-                    press=".onNavBack"/>
-            </form:SimpleForm>
+			<Button
+				type="Reject"
+				icon="sap-icon://cancel"
+				text="{i18n>BtnCancel}"
+				press=".onNavBack"/>
         </Panel>
     </Page>
 </mvc:View>

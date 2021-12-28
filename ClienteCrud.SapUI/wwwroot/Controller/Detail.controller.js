@@ -11,18 +11,17 @@ sap.ui.define([
 		},
 		
 		_onObjectMatched: function (oEvent) {
-			var Id = oEvent.getParameter("arguments").clientPath
+			window.tela = this;
+			this.Id = oEvent.getParameter("arguments").data
 			var that = this
 			$.ajax({
 				dataType: "json",
 				type: "GET",
-				data: { id: Id },
-				url: "https://localhost:5001/api/Cliente/Details",
+				data: { id: this.Id },
+				url: "https://localhost:5001/api/Cliente/GetClient",
 				success: function (response) {
-					var ConvertedResponse = JSON.stringify(response)
-					//alert(ConvertedResponse)
-					console.log(response)
-					that.getView().bindElement(ConvertedResponse)
+					var oViewModel = new JSONModel(response)
+					that.getView().setModel(oViewModel, "client")
 				},
 				error: function (response) {
 					var ConvertedResponse = JSON.stringify(response)
@@ -31,13 +30,10 @@ sap.ui.define([
 				}
 			})
 		},
-		onEdit : function (oEvent) {
-			var bindingContext = oEvent.getSource().getBindingContext("client");
-			var selectedClient = bindingContext.getObject();
-			var IdView = selectedClient.id;
+		onEdit : function () {
 			var oRouter = this.getOwnerComponent().getRouter();
 			oRouter.navTo("edit", {
-				clientPath: IdView
+				data: this.Id
 			});
 		},
 

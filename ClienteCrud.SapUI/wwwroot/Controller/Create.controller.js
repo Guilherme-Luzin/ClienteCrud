@@ -10,16 +10,16 @@ sap.ui.define([
 			oRouter.getRoute("edit").attachPatternMatched(this._onObjectMatched, this);
 		},
 		_onObjectMatched: function (oEvent) {
-			var Id = oEvent.getParameter("arguments").clientPath
+			var Id = oEvent.getParameter("arguments").data
+			var that = this;
 			$.ajax({
 				dataType: "json",
 				type: "GET",
 				data: { id: Id },
-				url: "https://localhost:5001/api/Cliente/Edit",
+				url: "https://localhost:5001/api/Cliente/GetClient",
 				success: function (response) {
-					//var ConvertedResponse = JSON.stringify(response)
-					//alert(ConvertedResponse)
-					console.log(response)
+					var oViewModel = new JSONModel(response)
+					that.getView().setModel(oViewModel, "client")
 				},
 				error: function (response) {
 					var ConvertedResponse = JSON.stringify(response)
@@ -42,21 +42,10 @@ sap.ui.define([
 			var nome = this.getView().byId("inNome").setValue(null);
 			var email = this.getView().byId("inEmail").setValue(null);
 			var idade = this.getView().byId("inIdade").setValue(null);
-		},
-		onValidate: function () {
 
-			var email = this.getView().byId("inEmail").getValue();
-
-			var mailregex = /^\w+[\w-+\.]*\@\w+([-\.]\w+)*\.[a-zA-Z]{2,}$/;
-
-			if (!mailregex.test(email)) {
-
-				alert("Insira um e-mail válido! \nexemplo@exemplo.exemplo");
-
-				this.getView().byId("inEmail").setValueState(sap.ui.core.ValueState.Error);
-
-			}
-
+			this.getView().byId("inNome").setValueState(sap.ui.core.ValueState.None);
+			this.getView().byId("inEmail").setValueState(sap.ui.core.ValueState.None);
+			this.getView().byId("inIdade").setValueState(sap.ui.core.ValueState.None);
 		},
 		onAddClient: function () {
 			var id = this.getView().byId("inId").getValue();
@@ -64,14 +53,25 @@ sap.ui.define([
 			var email = this.getView().byId("inEmail").getValue();
 			var idade = this.getView().byId("inIdade").getValue();
 
+			var mailregex = /^\w+[\w-+\.]*\@\w+([-\.]\w+)*\.[a-zA-Z]{2,}$/;
+
 			if (nome == "") {
 				alert("O nome não pode ficar em branco")
+				this.getView().byId("inNome").setValueState(sap.ui.core.ValueState.Error);
 			}
 			else if (email == "") {
 				alert("O email não pode ficar em branco")
+				this.getView().byId("inEmail").setValueState(sap.ui.core.ValueState.Error);
+			}
+			else if (!mailregex.test(email)) {
+
+				alert("Insira um e-mail válido! \nexemplo@exemplo.exemplo");
+
+				this.getView().byId("inEmail").setValueState(sap.ui.core.ValueState.Error);
 			}
 			else if (idade == "") {
 				alert("A idade não pode ficar em branco e deve conter apenas NÚMEROS")
+				this.getView().byId("inIdade").setValueState(sap.ui.core.ValueState.Error);
 			}
 			else {
 				var cliente = {
@@ -79,8 +79,8 @@ sap.ui.define([
 					Nome: nome,
 					Email: email,
 					Idade: idade
-				}
-				//var that = this;
+				}	
+
 				$.ajax({
 					dataType: "json",
 					type: "POST",
@@ -88,7 +88,6 @@ sap.ui.define([
 					data: { cliente: cliente },
 					success: function (response) {
 						alert("Dados salvos com sucesso ")
-						//that.getView.byId("ClientTable").refresh()
 						window.location.replace("Index.html")
 					},
 					error: function (response) {
@@ -98,14 +97,6 @@ sap.ui.define([
 						console.log(cliente)
 					}
 				})
-				//var oHistory = History.getInstance();
-				//var sPreviousHash = oHistory.getPreviousHash();
-				//if (sPreviousHash !== undefined) {
-				//	window.history.go(-1);
-				//} else {
-				//	var oRouter = this.getOwnerComponent().getRouter();
-				//	oRouter.navTo("overview", {}, true);
-				//}
 			}
 		}
 	});

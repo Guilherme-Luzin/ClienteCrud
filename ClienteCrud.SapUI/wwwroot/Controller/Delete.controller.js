@@ -1,7 +1,8 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
-	"sap/ui/core/routing/History"
-], function (Controller, History) {
+	"sap/ui/core/routing/History",
+	"sap/ui/model/json/JSONModel"
+], function (Controller, History, JSONModel) {
 	"use strict";
 	return Controller.extend("sap.ui.crudCliente.Controller.Delete", {
 		onInit: function () {
@@ -9,21 +10,16 @@ sap.ui.define([
 			oRouter.getRoute("delete").attachPatternMatched(this._onObjectMatched, this);
 		},
 		_onObjectMatched: function (oEvent) {
-			//this.getView().bindElement({
-			//	path: "/" + window.decodeURIComponent(oEvent.getParameter("arguments").clientPath),
-			//	model: "client"
-			//});
-			//var Id = oEvent.getParameter("arguments").clientPath
-			this.Id = oEvent.getParameter("arguments").clientPath
+			var that = this;
+			this.Id = oEvent.getParameter("arguments").data
 			$.ajax({
 				dataType: "json",
 				type: "GET",
 				data: { id: this.Id },
-				url: "https://localhost:5001/api/Cliente/Delete",
+				url: "https://localhost:5001/api/Cliente/GetClient",
 				success: function (response) {
-					// var ConvertedResponse = JSON.stringify(response)
-					//alert(ConvertedResponse)
-					console.log(response)
+					var oViewModel = new JSONModel(response)
+					that.getView().setModel(oViewModel, "client")
 				},
 				error: function (response) {
 					var ConvertedResponse = JSON.stringify(response)
@@ -34,12 +30,11 @@ sap.ui.define([
 		},
 
 		onDeleteClient: function (oEvent) {
-			var IdDelete = this.Id
 			$.ajax({
 				dataType: "json",
 				type: "POST",
 				url: "https://localhost:5001/api/Cliente/Delete",
-				data: { id: IdDelete },
+				data: { id: this.Id },
 				success: function (response) {
 					alert("Dados deletados com sucesso ")
 					window.location.replace("Index.html")

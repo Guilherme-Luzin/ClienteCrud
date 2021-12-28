@@ -34,15 +34,7 @@
     "models": {
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
-        "settings": {
-          "bundleName": "sap.ui.crudCliente.i18n.i18n",
-          "supportedLocales": [ "" ],
-          "fallbackLocale": ""
-        }
-      },
-      "client": {
-        "type": "sap.ui.model.json.JSONModel",
-        "uri": "Clients.json"
+        "uri": "i18n/i18n.properties"
       }
     },
     "routing": {
@@ -65,17 +57,17 @@
           "target": "create"
         },
         {
-          "pattern": "edit/{clientPath}",
+          "pattern": "edit/{data}",
           "name": "edit",
           "target": "create"
         },
         {
-          "pattern": "detail/{clientPath}",
+          "pattern": "detail/{data}",
           "name": "detail",
           "target": "detail"
         },
         {
-          "pattern": "delete/{clientPath}",
+          "pattern": "delete/{data}",
           "name": "delete",
           "target": "delete"
         }
