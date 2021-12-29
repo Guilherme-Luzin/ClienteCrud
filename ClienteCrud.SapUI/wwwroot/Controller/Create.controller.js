@@ -38,39 +38,34 @@ sap.ui.define([
 				var oRouter = this.getOwnerComponent().getRouter();
 				oRouter.navTo("overview", {}, true);
 			}
-			var id = this.getView().byId("inId").setValue(null);
-			var nome = this.getView().byId("inNome").setValue(null);
-			var email = this.getView().byId("inEmail").setValue(null);
-			var idade = this.getView().byId("inIdade").setValue(null);
+			this.getView().byId("inId").setValue(null);
+			this.getView().byId("inNome").setValue(null);
+			this.getView().byId("inEmail").setValue(null);
+			this.getView().byId("inIdade").setValue(null);
 
 			this.getView().byId("inNome").setValueState(sap.ui.core.ValueState.None);
 			this.getView().byId("inEmail").setValueState(sap.ui.core.ValueState.None);
 			this.getView().byId("inIdade").setValueState(sap.ui.core.ValueState.None);
 		},
-		onAddClient: function () {
+		onAddClient: function (oEvent) {
 			var id = this.getView().byId("inId").getValue();
 			var nome = this.getView().byId("inNome").getValue();
 			var email = this.getView().byId("inEmail").getValue();
 			var idade = this.getView().byId("inIdade").getValue();
 
 			var mailregex = /^\w+[\w-+\.]*\@\w+([-\.]\w+)*\.[a-zA-Z]{2,}$/;
+			var validaNome = /[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/
 
-			if (nome == "") {
-				alert("O nome não pode ficar em branco")
+			if (nome == "" || !validaNome.test(nome)) {
+				alert("O nome não pode ficar em branco e NÃO deve conter números")
 				this.getView().byId("inNome").setValueState(sap.ui.core.ValueState.Error);
 			}
-			else if (email == "") {
-				alert("O email não pode ficar em branco")
-				this.getView().byId("inEmail").setValueState(sap.ui.core.ValueState.Error);
-			}
-			else if (!mailregex.test(email)) {
-
+			else if (email == "" || !mailregex.test(email)) {
 				alert("Insira um e-mail válido! \nexemplo@exemplo.exemplo");
-
 				this.getView().byId("inEmail").setValueState(sap.ui.core.ValueState.Error);
 			}
-			else if (idade == "") {
-				alert("A idade não pode ficar em branco e deve conter apenas NÚMEROS")
+			else if (idade == "" || idade <= 0 || idade > 122) {
+				alert("Insira uma idade válida")
 				this.getView().byId("inIdade").setValueState(sap.ui.core.ValueState.Error);
 			}
 			else {
@@ -80,7 +75,7 @@ sap.ui.define([
 					Email: email,
 					Idade: idade
 				}	
-
+				var that = this;
 				$.ajax({
 					dataType: "json",
 					type: "POST",
@@ -88,7 +83,18 @@ sap.ui.define([
 					data: { cliente: cliente },
 					success: function (response) {
 						alert("Dados salvos com sucesso ")
-						window.location.replace("Index.html")
+
+						var oRouter = that.getOwnerComponent().getRouter();
+						oRouter.navTo("overview");
+
+						that.getView().byId("inId").setValue(null);
+						that.getView().byId("inNome").setValue(null);
+						that.getView().byId("inEmail").setValue(null);
+						that.getView().byId("inIdade").setValue(null);
+
+						that.getView().byId("inNome").setValueState(sap.ui.core.ValueState.None);
+						that.getView().byId("inEmail").setValueState(sap.ui.core.ValueState.None);
+						that.getView().byId("inIdade").setValueState(sap.ui.core.ValueState.None);
 					},
 					error: function (response) {
 						var ConvertedResponse = JSON.stringify(response)
