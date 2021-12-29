@@ -14,7 +14,7 @@ namespace ClienteCrud.Infra
         
         //cria a conexão com o banco
         public Conexao() {
-            con.ConnectionString = "Data Source=INVENT017;Initial Catalog=CadastroCliente;Integrated Security=True";
+            con.ConnectionString = @"Data Source=INVENT069\B1;Initial Catalog=CadastroCliente;Integrated Security=True";
         }
 
         //Abre a conexão com o banco

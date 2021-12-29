@@ -54,7 +54,7 @@
 
 	// to configure GetSchemaOptions properties, add them here, before load metadata call
 
-	LoadSqlServerMetadata("Server=INVENT017;Database=CadastroCliente;Trusted_Connection=True;Enlist=False;");
+	LoadSqlServerMetadata("Server=INVENT069\\B1;Database=CadastroCliente;Trusted_Connection=True;Enlist=False;");
 //	LoadSqlServerMetadata(".", "MyDatabase"); // Integrated Security
 //	LoadSqlServerMetadata(string connectionString);
 

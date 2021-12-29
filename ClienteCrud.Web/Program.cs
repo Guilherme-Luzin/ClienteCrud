@@ -41,7 +41,7 @@ namespace ClienteCrud.Web
                     // Add SQLite support to FluentMigrator
                     .AddSqlServer()
                     // Set the connection string
-                    .WithGlobalConnectionString("Data Source=INVENT017;Initial Catalog=CadastroCliente;Integrated Security=True")
+                    .WithGlobalConnectionString(@"Data Source=INVENT069\B1;Initial Catalog=CadastroCliente;Integrated Security=True")
                     // Define the assembly containing the migrations
                     .ScanIn(typeof(_20211217151100_criando_tabela_de_clientes).Assembly).For.Migrations())
                 // Enable logging to console in the FluentMigrator way

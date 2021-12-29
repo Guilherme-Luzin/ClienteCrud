@@ -36,7 +36,7 @@ namespace ClienteCrud.Infra
                         Name = "CadastroCliente",
                         ProviderName = "System.Data.SqlCliente",
                         ConnectionString =
-                @"Data Source=INVENT017;Initial Catalog=CadastroCliente;Integrated Security=True"
+                @"Data Source=INVENT069\B1;Initial Catalog=CadastroCliente;Integrated Security=True"
                     };
             }
         }

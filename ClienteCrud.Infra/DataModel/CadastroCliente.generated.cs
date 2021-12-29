@@ -18,7 +18,7 @@ namespace DataModels
 {
 	/// <summary>
 	/// Database       : CadastroCliente
-	/// Data Source    : INVENT017
+	/// Data Source    : INVENT069\B1
 	/// Server Version : 14.00.1000
 	/// </summary>
 	public partial class CadastroClienteDB : LinqToDB.Data.DataConnection
