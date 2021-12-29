@@ -8,6 +8,11 @@ sap.ui.define([
 
 	return Controller.extend("sap.ui.crudCliente.Controller.ClientList", {
 		onInit: function () {
+			var oRouter = this.getOwnerComponent().getRouter();
+			oRouter.getRoute("overview").attachPatternMatched(this._onObjectMatched, this);
+		},
+
+		_onObjectMatched: function () {
 			var that = this;
 			$.ajax({
 				dataType: "json",

@@ -30,6 +30,7 @@ sap.ui.define([
 		},
 
 		onDeleteClient: function (oEvent) {
+			var that = this;
 			$.ajax({
 				dataType: "json",
 				type: "POST",
@@ -37,7 +38,8 @@ sap.ui.define([
 				data: { id: this.Id },
 				success: function (response) {
 					alert("Dados deletados com sucesso ")
-					window.location.replace("Index.html")
+					var oRouter = that.getOwnerComponent().getRouter();
+					oRouter.navTo("overview", {}, true);
 				},
 				error: function (response) {
 					var ConvertedResponse = JSON.stringify(response)

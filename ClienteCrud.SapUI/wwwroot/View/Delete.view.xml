@@ -25,8 +25,8 @@
                     text="{i18n>BtnDelete}"
                     press=".onDeleteClient"/>
 			<Button
-				icon="sap-icon://cancel"
-				text="{i18n>BtnCancel}"
+				icon="sap-icon://response"
+				text="{i18n>BtnGoBack}"
 				press=".onNavBack"/>
 		</Panel>
 	</Page>
