@@ -1,13 +1,18 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/core/routing/History",
-	"sap/ui/model/json/JSONModel"
-], function (Controller, History, JSONModel) {
+	"sap/ui/model/json/JSONModel",
+	"sap/m/MessageBox"
+], function (Controller, History, JSONModel, MessageBox) {
 	"use strict";
 	return Controller.extend("sap.ui.crudCliente.Controller.Detail", {
 		onInit: function () {
 			var oRouter = this.getOwnerComponent().getRouter();
 			oRouter.getRoute("detail").attachPatternMatched(this._onObjectMatched, this); 
+		},
+
+		onBeforeRendering: function () {
+			sap.ui.getCore().getElementById("oBusyDialog").open();
 		},
 		
 		_onObjectMatched: function (oEvent) {
@@ -22,11 +27,16 @@ sap.ui.define([
 				success: function (response) {
 					var oViewModel = new JSONModel(response)
 					that.getView().setModel(oViewModel, "client")
+					sap.ui.getCore().getElementById("oBusyDialog").close();
 				},
 				error: function (response) {
 					var ConvertedResponse = JSON.stringify(response)
 					console.table(ConvertedResponse)
-					alert("Erro ao gerar os detalhes: " + ConvertedResponse)
+					MessageBox.show("Erro ao gerar os detalhes: " + ConvertedResponse, {
+						icon: MessageBox.Icon.ERROR,
+						title: "Erro"
+					})
+					sap.ui.getCore().getElementById("oBusyDialog").close();
 				}
 			})
 		},
