@@ -1,15 +1,25 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/core/routing/History",
-	"sap/ui/model/json/JSONModel"
-], function (Controller, History, JSONModel) {
+	"sap/ui/model/json/JSONModel",
+	"sap/m/MessageBox"
+], function (Controller, History, JSONModel, MessageBox) {
 	"use strict";
 	return Controller.extend("sap.ui.crudCliente.Controller.Create", {
 		onInit: function () {
 			var oRouter = this.getOwnerComponent().getRouter();
 			oRouter.getRoute("edit").attachPatternMatched(this._onObjectMatched, this);
 		},
+		onBeforeRendering: function () {
+			sap.ui.getCore().getElementById("oBusyDialog").open();
+		},
+
+		onAfterRendering: function () {
+			sap.ui.getCore().getElementById("oBusyDialog").close();
+		},
+
 		_onObjectMatched: function (oEvent) {
+			sap.ui.getCore().getElementById("oBusyDialog").open();
 			var Id = oEvent.getParameter("arguments").data
 			var that = this;
 			$.ajax({
@@ -20,12 +30,17 @@ sap.ui.define([
 				success: function (response) {
 					var oViewModel = new JSONModel(response)
 					that.getView().setModel(oViewModel, "client")
+					sap.ui.getCore().getElementById("oBusyDialog").close();
 				},
 				error: function (response) {
 					var ConvertedResponse = JSON.stringify(response)
 					console.table(ConvertedResponse)
-					alert("Erro ao gerar tabela: " + ConvertedResponse)
-				}
+					MessageBox.show("Erro ao carregar dados: " + ConvertedResponse, {
+						icon: MessageBox.Icon.ERROR,
+						title: "Erro"
+					})
+					sap.ui.getCore().getElementById("oBusyDialog").close();
+ 				}
 			})
 		},
 
@@ -57,18 +72,28 @@ sap.ui.define([
 			var validaNome = /[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/
 
 			if (nome == "" || !validaNome.test(nome)) {
-				alert("O nome não pode ficar em branco e NÃO deve conter números")
+				MessageBox.show("O nome não pode ficar em branco e NÃO deve conter números", {
+					icon: MessageBox.Icon.ERROR,
+					title: "Erro"
+                })
 				this.getView().byId("inNome").setValueState(sap.ui.core.ValueState.Error);
 			}
 			else if (email == "" || !mailregex.test(email)) {
-				alert("Insira um e-mail válido! \nexemplo@exemplo.exemplo");
+				MessageBox.show("Insira um e-mail válido! \nexemplo@exemplo.exemplo", {
+					icon: MessageBox.Icon.ERROR,
+					title: "Erro"
+                })
 				this.getView().byId("inEmail").setValueState(sap.ui.core.ValueState.Error);
 			}
 			else if (idade == "" || idade <= 0 || idade > 122) {
-				alert("Insira uma idade válida")
+				MessageBox.show("Insira uma idade válida", {
+					icon: MessageBox.Icon.ERROR,
+					title: "Erro"
+				})
 				this.getView().byId("inIdade").setValueState(sap.ui.core.ValueState.Error);
 			}
 			else {
+				sap.ui.getCore().getElementById("oBusyDialog").open();
 				var cliente = {
 					Id: id,
 					Nome: nome,
@@ -76,31 +101,41 @@ sap.ui.define([
 					Idade: idade
 				}	
 				var that = this;
+				var oRouter = that.getOwnerComponent().getRouter();
 				$.ajax({
 					dataType: "json",
 					type: "POST",
 					url: "https://localhost:5001/api/Cliente/Create",
 					data: { cliente: cliente },
 					success: function (response) {
-						alert("Dados salvos com sucesso ")
+						MessageBox.show("Dados salvos com sucesso", {
+							icon: MessageBox.Icon.SUCCESS,
+							title: "Sucesso",
+							actions: MessageBox.Action.OK,
+							onClose: function (oAction) {
+								if (oAction == "OK") {
+									oRouter.navTo("overview", {}, true)
 
-						var oRouter = that.getOwnerComponent().getRouter();
-						oRouter.navTo("overview");
+									that.getView().byId("inId").setValue(null);
+									that.getView().byId("inNome").setValue(null);
+									that.getView().byId("inEmail").setValue(null);
+									that.getView().byId("inIdade").setValue(null);
 
-						that.getView().byId("inId").setValue(null);
-						that.getView().byId("inNome").setValue(null);
-						that.getView().byId("inEmail").setValue(null);
-						that.getView().byId("inIdade").setValue(null);
-
-						that.getView().byId("inNome").setValueState(sap.ui.core.ValueState.None);
-						that.getView().byId("inEmail").setValueState(sap.ui.core.ValueState.None);
-						that.getView().byId("inIdade").setValueState(sap.ui.core.ValueState.None);
+									that.getView().byId("inNome").setValueState(sap.ui.core.ValueState.None);
+									that.getView().byId("inEmail").setValueState(sap.ui.core.ValueState.None);
+									that.getView().byId("inIdade").setValueState(sap.ui.core.ValueState.None);
+								}
+							}
+						})
+						sap.ui.getCore().getElementById("oBusyDialog").close();
 					},
 					error: function (response) {
 						var ConvertedResponse = JSON.stringify(response)
-						console.table(response)
-						alert("Erro ao salvar no banco: " + ConvertedResponse)
-						console.log(cliente)
+						MessageBox.show("Erro ao salvar dados: " + ConvertedResponse, {
+							icon: MessageBox.Icon.ERROR,
+							title: "erro"
+						})
+						sap.ui.getCore().getElementById("oBusyDialog").close();
 					}
 				})
 			}
